@@ -1,0 +1,56 @@
+# Record structure
+class SaleData:
+    def __init__(self, salesIDp, Quantityp):
+        self.SalesID = salesIDp
+        self.Quantity = Quantityp
+
+# Global declaration and initialisation
+CircularQueue = [] #SaleData
+Head = 0    #INTEGER
+Tail = 0    # INTEGER
+NumberOfItems = 0   # INTEGER
+for i in range(5):
+    CircularQueue.append((SaleData("", -1)))
+
+
+def Enqueue(RecordToAdd):
+    global Tail, CircularQueue, NumberOfItems
+
+    if NumberOfItems == 5:
+        return -1
+    else:
+        CircularQueue[Tail] = RecordToAdd
+        if Tail == 4:
+            Tail = 0
+        else:
+            Tail += 1
+        NumberOfItems += 1
+        return 1
+
+def Dequeue():
+    global Head, CircularQueue, NumberOfItems
+
+    recordRemoved = SaleData("", -1)
+    if NumberOfItems != 0:
+        recordRemoved = CircularQueue[Head]
+        NumberOfItems -= 1
+        if Head == 4:
+            Head = 0
+        else:
+            Head +=1
+    return recordRemoved
+
+def EnterRecord():
+    ID = input("Enter ID:")
+    Quantity = input("Enter Quantity:")
+    Record = SaleData(ID, Quantity)
+    if Enqueue(Record) == -1:
+        print("Full")
+    else:
+        print("Stored")
+
+def main():
+
+
+if __name__=="__main__":
+    main()
